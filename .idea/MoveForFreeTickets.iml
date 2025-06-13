@@ -12,5 +12,6 @@
     <orderEntry type="library" name="@mediapipe" level="application" />
     <orderEntry type="library" name="ml5" level="application" />
     <orderEntry type="library" name="@mediapipe" level="application" />
+    <orderEntry type="library" name="@emailjs/browser" level="application" />
   </component>
 </module>
