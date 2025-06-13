@@ -1,0 +1,66 @@
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.video-container {
+    position: relative;
+    margin-bottom: 20px;
+    width: 640px;
+    height: 480px;
+}
+
+video, canvas {
+    border: 1px solid black;
+    width: 640px;
+    height: 480px;
+    position: absolute;
+    margin-top: 150px;
+
+}
+
+#controls {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#controls button, #controls input {
+    margin: 5px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#controls button:hover, #controls input:hover {
+    background-color: #45a049;
+}
+
+#squatcount {
+    font-weight: bold;
+}
+
+video, canvas {
+    border: 1px solid black;
+}
+#controls {
+    margin-top: 10px;
+}
+
+
+canvas {
+    z-index: 1; /* Zorgt ervoor dat het canvas boven de video staat */
+}
+
+video {
+    z-index: 0; /* Zorgt ervoor dat de video onder het canvas staat */
+}
