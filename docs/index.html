@@ -265,20 +265,32 @@
     let poseActive = false;
 
     async function loadModel() {
-        model = ml5.neuralNetwork({ task: 'classification', inputs: 34, outputs: ['Squat', 'JumpingJack'] });
+        model = ml5.neuralNetwork({ task: 'classification', inputs: 66, outputs: ['Squat', 'JumpingJack'] });
         await model.load('./models/poseModel.json');
         console.log("Model succesvol geladen");
     }
 
     function updateCounters(type) {
-        if (type === 'squat' && squatCount < 10) squatCount++;
-        if (type === 'jack' && jumpingJackCount < 10) jumpingJackCount++;
+        // Voorkom dat er meer dan 10 worden geteld
+        if (type === 'squat' && squatCount >= 10) return;
+        if (type === 'jack' && jumpingJackCount >= 10) return;
 
-        document.getElementById(`${type}Counter`).textContent = (type === 'squat') ? squatCount : jumpingJackCount;
-        document.getElementById(`${type}Progress`).style.width = ((type === 'squat' ? squatCount : jumpingJackCount) / 10 * 100) + '%';
+        // Verhoog de teller voor het juiste type
+        if (type === 'squat') squatCount++;
+        if (type === 'jack') jumpingJackCount++;
 
-        if (squatCount >= 10) currentPhase = 'jack';
+        // Update de UI (tekst en voortgangsbalk)
+        const currentCount = (type === 'squat') ? squatCount : jumpingJackCount;
+        document.getElementById(`${type}Counter`).textContent = currentCount;
+        document.getElementById(`${type}Progress`).style.width = (currentCount / 10 * 100) + '%';
 
+        if (squatCount >= 10 && currentPhase === 'squat') {
+            currentPhase = 'jack';
+            poseActive = false; // Reset de 'pose lock' voor de nieuwe fase!
+            console.log("Fase gewisseld naar Jumping Jacks. Pose lock is gereset.");
+        }
+
+        // Toon de e-mailcontainer als alles voltooid is
         if (squatCount >= 10 && jumpingJackCount >= 10) {
             document.getElementById('emailContainer').classList.remove('hidden');
         }

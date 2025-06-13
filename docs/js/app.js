@@ -48,7 +48,7 @@ async function loadSavedModel() {
         const model = ml5.neuralNetwork({
             task: 'classification',
             debug: true,
-            inputs: 34,
+            inputs: 66,
             outputs: ['Squat', 'JumpingJack']
         });
 

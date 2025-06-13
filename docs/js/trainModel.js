@@ -6,7 +6,7 @@ export async function trainModelFromFile(inputId) {
     catch { return alert("Ongeldig JSON."); }
 
     const model = ml5.neuralNetwork({
-        task: 'classification', debug: true, inputs: 34, outputs: ['Squat','JumpingJack'], learningRate: 0.01
+        task: 'classification', debug: true, inputs: 66, outputs: ['Squat','JumpingJack'], learningRate: 0.01
     });
     data.forEach(s => model.addData(s.keypoints, { label: s.label }));
     await new Promise((res, rej) => model.train({epochs:50, batchSize:32}, err => err ? rej(err) : res()));
@@ -22,7 +22,7 @@ export async function trainModel(data) {
     const model = ml5.neuralNetwork({
         task: 'classification',
         debug: true,
-        inputs: 34,
+        inputs: 66,
         outputs: 2,
         learningRate: 0.01,
     });
@@ -80,7 +80,7 @@ function oneHotEncode(label, classes) {
 }
 
 export async function predictPose(model, keypoints) {
-    if (!model || !keypoints || keypoints.length !== 34) {
+    if (!model || !keypoints || keypoints.length !== 66) {
         return "Unknown";
     }
 
