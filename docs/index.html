@@ -240,11 +240,11 @@
 </div>
 
 <div class="counters" role="region" aria-label="Oefening voortgang">
-    <div>Squats: <span id="squatCounter" aria-live="polite" aria-atomic="true">0</span> / 10</div>
+    <div>Squats: <span id="squatCounter" aria-live="polite" aria-atomic="true">0</span> / 3</div>
     <div class="progress" aria-hidden="true">
         <div id="squatProgress" class="progress-bar"></div>
     </div>
-    <div>Jumping Jacks: <span id="jackCounter" aria-live="polite" aria-atomic="true">0</span> / 10</div>
+    <div>Jumping Jacks: <span id="jackCounter" aria-live="polite" aria-atomic="true">0</span> / 3</div>
     <div class="progress" aria-hidden="true">
         <div id="jackProgress" class="progress-bar"></div>
     </div>
@@ -272,8 +272,8 @@
 
     function updateCounters(type) {
         // Voorkom dat er meer dan 10 worden geteld
-        if (type === 'squat' && squatCount >= 10) return;
-        if (type === 'jack' && jumpingJackCount >= 10) return;
+        if (type === 'squat' && squatCount >= 3) return;
+        if (type === 'jack' && jumpingJackCount >= 3) return;
 
         // Verhoog de teller voor het juiste type
         if (type === 'squat') squatCount++;
@@ -282,16 +282,16 @@
         // Update de UI (tekst en voortgangsbalk)
         const currentCount = (type === 'squat') ? squatCount : jumpingJackCount;
         document.getElementById(`${type}Counter`).textContent = currentCount;
-        document.getElementById(`${type}Progress`).style.width = (currentCount / 10 * 100) + '%';
+        document.getElementById(`${type}Progress`).style.width = (currentCount / 3 * 100) + '%';
 
-        if (squatCount >= 10 && currentPhase === 'squat') {
+        if (squatCount >= 3 && currentPhase === 'squat') {
             currentPhase = 'jack';
             poseActive = false; // Reset de 'pose lock' voor de nieuwe fase!
             console.log("Fase gewisseld naar Jumping Jacks. Pose lock is gereset.");
         }
 
         // Toon de e-mailcontainer als alles voltooid is
-        if (squatCount >= 10 && jumpingJackCount >= 10) {
+        if (squatCount >= 3 && jumpingJackCount >= 3) {
             document.getElementById('emailContainer').classList.remove('hidden');
         }
     }
